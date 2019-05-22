@@ -1,4 +1,5 @@
 import itertools
+from collections import Counter
 
 class Solution(object):
     def numJewelsInStones(self, J, S):
@@ -469,46 +470,57 @@ class Solution(object):
 
         return array
 
+    def isHappy(self, n):
+        """
+        :type n: int
+        :rtype: bool
+        """
+        number = reduce(lambda x, y: x + y, [int(i) for i in str(n)])
+        if len([i for i in str(n)]) <= 1:
+            return False
+        if  number == 1:
+            return True
+        else:
+            return self.isHappy(reduce(lambda x, y: (x ** 2) + (y ** 2), [int(i) for i in str(n)]))
+
+
+
+    def addStrings(self, num1, num2):
+        """
+        :type num1: str
+        :type num2: str
+        :rtype: str
+        """
+        dict_n = {'0':0,'1':1,'2':2,'3':3,'4':4,'5':5,'6':6,'7':7,'8':8,'9':9}
+
+        number = 0
+        number2 = 0
+        for char in num1:
+            number = 10 * number + dict_n[char]
+        for char in num2:
+            number2 = 10 * number2 + dict_n[char]
+        return number1 + number2
+
+
+    def isPalindrome(self, x):
+        """
+        :type x: int
+        :rtype: bool
+        """
+        if x < 0:
+            return False
+        else:
+            return str(x) == reverse_slicing(str(x))
+
+
+    def hammingWeight(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        cnt = Counter(str(bin(n)))
+        return cnt['1']
+
 if __name__ == '__main__':
     solution = Solution()
-    solution.generate(9)
-#    solution.lcm(1,10)
-#    solution.searchBST([4,2,7,1,3],2)
-#    solution.rotatedDigits(2)
-#    solution.moveZeroes([1,2,5,0,6,0,3,0,12])
-#    solution.nextGreaterElement(nums1 = [4,1,2], nums2 = [8,7,5,4,3,7,1,9])
-#    solution.fizzBuzz(1)
-#    solution.singleNumber([-1])
-#    solution.canPermutePalindrome("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc")
-#    solution.reverseString("asdfghjk")
-#    solution.reverseVowels("aA")
-#    solution.largestPrimeFactor(600851475143)
-#    solution.isPowerOfThree(27)
-#    solution.isPowerOfTwo(1)
-#    solution.firstUniqChar("leetcode")
-#    solution.findDisappearedNumbers_1([1,1,1,2,2,2,3])
-#    solution.sumOfFibonacci(4000000)
-#    solution.sumOfMutliplies(1000)
-#    solution.judgeCircle("DD")
-#    solution.islandPerimeter_1([[0,1,0,0],
-#                              [1,1,1,0],
-#                              [0,1,0,0],
-#                              [1,1,0,0]])
-#    solution.isToeplitzMatrix_1([[11,74,0,93],
-#                               [40,11,74,0],
-#                               [22,40,11,74],
-#                               [3,22,40,11]])
-#    solution.isToeplitzMatrix([[83],[64],[57]])
-#    solution.isToeplitzMatrix([[41,45],
-#                               [81,41],
-#                               [73,81],
-#                               [47,73],
-#                               [76,47],
-#                               [79,76]])
-#    solution.test_peakIndexInMountainArray()
-#    solution.test_flipAndInvertImage()
-#    solution.sortedSquares([-4,-1,0,3,10])
-#    solution.backspaceCompare("a##c", "#a#c")
-#    solution.uniqueMorseRepresentations(["rwjje","aittjje","auyyn","lqtktn","lmjwn"])
-#    solution.anagramMappings([12, 28, 46, 32, 50], [50, 12, 32, 46, 28])
-#    solution.num_uniq_emails(["test.email+alex@leetcode.com","test.e.mail+bob.cathy@leetcode.com","testemail+david@lee.tcode.com"])
+    solution.hammingWeight(00000000000000000000000000001011)
